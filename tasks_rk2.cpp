@@ -21,9 +21,15 @@ Node::~Node() {
 }
 
 Graph::Graph() {
+    Node* temp = new Node;
+    head = temp;
+
+    head->name = 0;
+    deep = 0;
+}
+Graph::Graph(int countNodes) {
 
 }
-Graph::Graph(int countNodes) {}
 Graph::~Graph() {}
 int Graph::buildTreeBFS(int countNodes) {}
 int Graph::buildTreeDFS(int countNodes) {}
@@ -37,5 +43,7 @@ pair<int/*index el*/,int /*count call*/> binSearch(int* ar, int sizeAr, int el) 
 
 
 //task3
+
 //task4
+
 //task5

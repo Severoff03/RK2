@@ -39,7 +39,9 @@ struct Node {
 class Graph {
 private :
     Node* head;
-    //здесь можно писать любые функции, которые могут понадобиться
+    std::list<Node*> GList;
+    int deep;
+   //здесь можно писать любые функции, которые могут понадобиться
 public :
     Graph();
     Graph(int countNodes);
