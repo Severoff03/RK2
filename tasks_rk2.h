@@ -195,7 +195,7 @@ private:
 
       //можно объявляеть любые переменные и функции
 public :
-    CheckBrackets() : Filo<char>() { }
+    CheckBrackets() : Filo<char>(64) { }
     ~CheckBrackets() {}
     /*
         input		:	строка со скобками
