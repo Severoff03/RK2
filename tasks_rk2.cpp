@@ -28,9 +28,10 @@ Graph::Graph() {
     deep = 0;
 }
 Graph::Graph(int countNodes) {
-
 }
-Graph::~Graph() {}
+Graph::~Graph() {
+    delete head;
+}
 int Graph::buildTreeBFS(int countNodes) {}
 int Graph::buildTreeDFS(int countNodes) {}
 void Graph::BFS() {}
@@ -39,11 +40,107 @@ std::pair<bool, list<int>> Graph::searchDFS(int nameNode)	 {}
 std::pair<bool, list<int>> Graph::searchBFS(int nameNode)	{}
 
 //task2
-pair<int/*index el*/,int /*count call*/> binSearch(int* ar, int sizeAr, int el) {}
+
+std::pair<int/*index el*/, int /*count call*/> binSearchRec(int* ar, int first, int last, int index_el, int chek)
+{
+    if(last - first >= 1)
+    {
+        if(ar[last] == index_el)
+        {
+            return std::make_pair(last, chek);
+        }
+
+        if(ar[first] == index_el)
+        {
+            return std::make_pair(first, chek);
+        }
+
+    }
+    else
+    {
+        return std::make_pair(-1, chek);
+    }
+
+    int mid = ar[(last + first) / 2];
+
+    if(mid >= index_el)
+    {
+        chek++;
+        binSearchRec(ar, first, (last + first) / 2, index_el, chek );
+    }
+    else
+    {
+        chek++;
+        binSearchRec (ar, (last + first) / 2, last, index_el, chek );
+    }
+}
+
+pair<int/*index el*/,int /*count call*/> binSearch(int* ar, int sizeAr, int el) {
+    return binSearchRec(ar, 0, sizeAr-1, el, 1);
+}
 
 
 //task3
 
+
 //task4
 
 //task5
+template<class T>
+class CheckBrackets : public Filo<char> {
+private:
+    char findPair(char c)
+    {
+        if (c == '}')
+        {
+            return '{';
+        }
+        if (c == ')')
+        {
+            return '(';
+        }
+        if (c == ']')
+        {
+            return '[';
+        }
+        return 0;
+    };
+    bool isOpenBracket(char c)
+    {
+        return (c == '{' || c == '(' || c == '[');
+    };
+public :
+    CheckBrackets() : Filo<char>(){};
+    ~CheckBrackets() {};
+
+    /*
+        input		:	строка со скобками
+        output		:	0 - всё хорошо, -1 - скобок не хватает
+        description	:	проверка скобок,
+    */
+    int checkBrackets(const char* strBrackets)
+    {
+        auto length = strlen(strBrackets);
+        if (length % 2 != 0)
+        {
+            return -1;
+        }
+
+        for (int i = 0; i < length; i++)
+        {
+            if (isOpenBracket(strBrackets[i]))
+            {
+                push_back(strBrackets[i]);
+            }
+            else
+            {
+                auto p = pop_back();
+                if (p.first == 0 || p.second != findPair(strBrackets[i]))
+                {
+                    return -1;
+                }
+            }
+        }
+        return 1;
+    };
+};

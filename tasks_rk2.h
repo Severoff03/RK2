@@ -98,15 +98,38 @@ private :
     int size;	//размер массива
     int countData;	//число элементов в массиве
 public :
-    Filo() {}
-    Filo(int _size) {}
-    ~Filo() {}
+    Filo() {
+        this->ar = new T[64];
+        this->size = 64;
+        countData = 0;
+}
+    Filo(int _size) {
+        this->ar = new T[_size];
+        this->size = _size;
+        countData = 0;
+}
+    ~Filo() {
+        if (this->ar != nullptr)
+        {
+            delete this->ar;
+        }
+}
     /*
         input		:	элемент который надо добавить
         output		:	1 - элемент добавлен, 0 - элемент не добавлен
         description	:	добавление элемента в конец массива
     */
-    int push_back(T el) {}
+    int push_back(T el) {
+        if (countData == size)
+        {
+            return 0;
+        }
+
+        ar[countData] = el;
+        countData++;
+
+        return 1;
+    }
     /*
         input		:	элемент который надо добавить
         output		:	пара
@@ -115,7 +138,16 @@ public :
                         значение второго аргумента пары -- это извлечённый элемент
         description	:	извлечение элемента из массива
     */
-    pair<int,T> pop_back() {}
+    pair<int,T> pop_back() {
+        if (countData == 0)
+        {
+            return make_pair(0, 0);
+        }
+
+        countData--;
+
+        return make_pair(1, ar[countData]);
+    }
     /*
         input		:	элемент который надо добавить
         output		:	пара
@@ -124,10 +156,20 @@ public :
                         значение второго аргумента пары -- это извлечённый элемент
         description	:	извлечение элемента из массива
     */
-    void returnAr() {}
+    void returnAr() {
+
+    }
 };
 
 //task4
+template<class T>
+
+ostream& operator<<(ostream& out, const pair<int,T> temp)
+{
+    out << "(" << temp.first << ", " << temp.second << ")" << std::endl;
+    return out;
+}
+
 
 //task5
 template<class T>
