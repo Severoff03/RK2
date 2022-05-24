@@ -28,6 +28,7 @@ Graph::Graph() {
     deep = 0;
 }
 Graph::Graph(int countNodes) {
+
 }
 Graph::~Graph() {
     delete head;
