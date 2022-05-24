@@ -88,7 +88,7 @@ public :
 };
 
 //task2
-pair<int/*index el*/,int /*count call*/> binSearch(int* ar, int sizeAr, int el);
+
 
 //task3
 template<class T>
@@ -175,7 +175,25 @@ ostream& operator<<(ostream& out, const pair<int,T> temp)
 template<class T>
 class CheckBrackets : public Filo<char> {
 private:
-    //можно объявляеть любые переменные и функции
+    char chekpar(char chek)
+    {
+        switch (chek) {
+            case '}':
+                return '{';
+                break;
+            case ')':
+                return '(';
+                break;
+            case ']':
+                return '[';
+                break;
+        }
+
+        return 0;
+    };
+
+
+      //можно объявляеть любые переменные и функции
 public :
     CheckBrackets() : Filo<char>() { }
     ~CheckBrackets() {}
@@ -184,8 +202,31 @@ public :
         output		:	0 - всё хорошо, -1 - скобок не хватает
         description	:	проверка скобок
     */
-    int checkBrackets(const char* strBrackets) {}
-};
+    int checkBrackets(const char* strBrackets) {
+        auto length = strlen(strBrackets);
+        if (length % 2 != 0)
+        {
+            return -1;
+        }
+
+        for (int i = 0; i < length; i++)
+        {
+            if (strBrackets[i]== '{' || strBrackets[i] == '(' || strBrackets[i] == '[')
+            {
+                push_back(strBrackets[i]);
+            }
+            else
+            {
+                auto p = pop_back();
+                if (p.first == 0 || p.second != chekpar(strBrackets[i]))
+                {
+                    return -1;
+                }
+            }
+        }
+        return 1;
+    };
+    };
 
 
 #endif //RK2_TASKS_RK2_H
