@@ -33,7 +33,7 @@ struct Node {
     Node* parent;
     std::list<Node*> listChilds;
     int name;
-    static int countNodes;
+    int countNodes;
 };
 
 class Graph {
